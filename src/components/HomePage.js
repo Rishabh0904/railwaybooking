@@ -135,7 +135,7 @@ export function Seat() {
             <div>
                 <h1 classNmae = "middle">Currently booked seats </h1>
                 {ans.map((val, i) => {
-                    return <b>{val + " "}</b>
+                    return <b>{val+1 + " "}</b>
                 })}
             </div>
         </div>
