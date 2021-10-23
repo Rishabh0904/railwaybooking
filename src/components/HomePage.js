@@ -1,11 +1,11 @@
 import React, { Component, useState, useEffect } from 'react'
 import './home.css';
 export function Seat() {
-    const [filled, setFilled] = useState([4, 7, 19, 58, 78]);
-    const [value, setValue] = useState(0);
+    const [filled, setFilled] = useState([4, 7, 19, 58, 78]); //to know how many seats are filled
+    const [value, setValue] = useState(0);  // number of seats user want to book
     let arr = []
     let extra = []
-    const[ans, setAns] = useState([])
+    const[ans, setAns] = useState([])  // state for showing the booking of seat
     const total = 80;
     const numrows = Math.floor(total / 7);
     const left = 80 % 7;
@@ -28,13 +28,14 @@ export function Seat() {
         arr[ith][jth] = 0;
     }
 
+    // handling the case that user can only book 7 seats at a time
     function handleChange(value) {
         !(value <= 7 && value >= 0) ? alert("enter valid input") : setValue(value);
     }
 
+    // useEffect to know thetotal number of filled seats and the number of seats booked by user this time
     useEffect(() => {
         extra = [];
-        let cval = value;
         let rowArr = new Array(i + 1);
         rowArr.fill(0)
         for (let a = 0; a < arr.length; a++) {
@@ -87,9 +88,7 @@ export function Seat() {
                         }
                     }
                 }
-                // console.log("");
                 setFilled([...filled, ...extra]);
-                // console.log(extra);
             } else {
                 alert("Seats are not available")
             }
@@ -104,7 +103,7 @@ export function Seat() {
             <input type="number" value={value} onChange={(e) => { handleChange(e.target.value) }}></input>
             <br />
             <table className="center">
-
+{/* this will help in creating the seat arrangement of coach */}
                 <tbody>
                     {arr.map((item, index) => {
                         return (
@@ -131,7 +130,7 @@ export function Seat() {
                     })}
                 </tbody>
             </table>
-
+{/* displaying the data of the current booked seats by user */}
             <div>
                 <h1 classNmae = "middle">Currently booked seats </h1>
                 {ans.map((val, i) => {

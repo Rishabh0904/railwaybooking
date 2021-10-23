@@ -10,15 +10,5 @@
     background-color: green;
 }
 .center{
-    align-items: center;
-    text-align: center;
-    display: inline;
     margin-left: 35%;
-}
-
-.middle{
-    display: flex;
-    text-align: center;
-    align-items: center;
-
 }
