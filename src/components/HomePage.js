@@ -1,11 +1,12 @@
 import React, { Component, useState, useEffect } from 'react'
+import Box from '@mui/material/Box';
 import './home.css';
 export function Seat() {
     const [filled, setFilled] = useState([4, 7, 19, 58, 78]); //to know how many seats are filled
     const [value, setValue] = useState(0);  // number of seats user want to book
     let arr = []
     let extra = []
-    const[ans, setAns] = useState([])  // state for showing the booking of seat
+    const [ans, setAns] = useState([])  // state for showing the booking of seat
     const total = 80;
     const numrows = Math.floor(total / 7);
     const left = 80 % 7;
@@ -41,7 +42,7 @@ export function Seat() {
         for (let a = 0; a < arr.length; a++) {
             for (let b = 0; b < arr[a].length; b++) {
                 if (arr[a][b] == 1) {
-                    rowArr[a] = rowArr[a] + 1;  
+                    rowArr[a] = rowArr[a] + 1;
                 }
             }
         }
@@ -76,14 +77,14 @@ export function Seat() {
                     let cval = value;
                     for (let a = 0; a < arr.length; a++) {
                         for (let b = 0; b < arr[a].length; b++) {
-                            if(cval > 0){
-                            if (arr[a][b] == 1) {
-                                rowArr[a] = rowArr[a] + 1;
-                                arr[a][b] = 0;
-                                extra.push(Number(a*7)+Number(b));
-                                console.log("abc");
-                                cval--;
-                                }   
+                            if (cval > 0) {
+                                if (arr[a][b] == 1) {
+                                    rowArr[a] = rowArr[a] + 1;
+                                    arr[a][b] = 0;
+                                    extra.push(Number(a * 7) + Number(b));
+                                    console.log("abc");
+                                    cval--;
+                                }
                             }
                         }
                     }
@@ -99,44 +100,71 @@ export function Seat() {
 
     return (
         <div className="flex">
-            <label className="center">Enter the number of seats you want to book : </label>
-            <input type="number" value={value} onChange={(e) => { handleChange(e.target.value) }}></input>
+            <Box
+                sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          p: 1,
+          m: 1,
+          bgcolor: 'background.paper',
+        }}
+            >
+
+            <Box><label className="">Enter the number of seats you want to book: </label></Box>
+            <Box><input type ="number" value={value} onChange={(e) => { handleChange(e.target.value) }}></input></Box>
+            </Box>
             <br />
             <table className="center">
-{/* this will help in creating the seat arrangement of coach */}
-                <tbody>
-                    {arr.map((item, index) => {
-                        return (
-                            <div>
-
-                                <tr>
-                                    {
-                                        item.map((itemVal, idx) => {
-                                            return (
-                                                <>
-                                                    <td> {
-
-                                                        arr[index][idx] == 0 ? <div id={Number(index * 7) + (Number)(idx)} className="border filled">{Number(index * 7) + (Number)(idx) + 1}</div>
-                                                            : <div id={Number(index * 7) + (Number)(idx)} className="border">{Number(index * 7) + (Number)(idx) + 1}</div>
-                                                    }
-                                                    </td>
-                                                </>
-                                            )
-                                        })
-                                    }
-                                </tr>
-                            </div>
-                        )
-                    })}
-                </tbody>
-            </table>
-{/* displaying the data of the current booked seats by user */}
+        {/* this will help in creating the seat arrangement of coach */}
+            <tbody>
+        {arr.map((item, index) => {
+            return (
             <div>
-                <h1 classNmae = "middle">Currently booked seats </h1>
-                {ans.map((val, i) => {
-                    return <b>{val+1 + " "}</b>
-                })}
+
+            <tr>
+        {
+            item.map((itemVal, idx) => {
+            return (
+            <>
+            <td> {
+
+            arr[index][idx]== 0?<div id={Number(index * 7) + (Number)(idx)} className="border filled">{Number(index * 7) + (Number)(idx) + 1}</div>
+            : <div id={Number(index * 7) + (Number)(idx)} className="border">{Number(index * 7) + (Number)(idx) + 1}</div>
+        }
+            </td>
+            </>
+        )
+        })
+        }
+            </tr>
             </div>
+        )
+        })}
+            </tbody>
+            </table>
+        {/* displaying the data of the current booked seats by user */}
+       
+            <Box 
+                sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          p: 1,
+          m: 1,
+          bgcolor: 'background.paper',
+        }} ><b>Currently booked seats</b> </Box>
+        <Box 
+                sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          p: 1,
+          m: 1,
+          bgcolor: 'background.paper',
+        }}>
+        {ans.map((val, i) => {
+            return <Box  sx={{ p: 1, bgcolor: 'grey.300' }}>{val+1 + " "}</Box>
+        })}
+
+        </Box>
         </div>
 
     )
